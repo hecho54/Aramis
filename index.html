@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aramis Pizza &amp; Pub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ─── NAV ─── -->
+  <nav class="nav" id="nav">
+    <a href="#" class="nav__logo">
+      <img src="images/logo R.png" alt="Aramis Pizza &amp; Pub" />
+    </a>
+    <button class="nav__burger" id="burger" aria-label="Menü">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav__links" id="navLinks">
+      <li><a href="#story">Rólunk</a></li>
+      <li><a href="#menu">Étlap</a></li>
+      <li><a href="#contact">Kapcsolat</a></li>
+    </ul>
+  </nav>
+
+  <!-- ─── HERO ─── -->
+  <section class="hero" id="home">
+    <div class="hero__bg">
+      <img src="images/COVER1.jpg" alt="Aramis pizza" class="hero__img" />
+      <div class="hero__overlay"></div>
+    </div>
+    <div class="hero__content">
+      <p class="hero__eyebrow reveal">— Budapest szívében —</p>
+      <img src="images/logo R.png" alt="Aramis" class="hero__brand reveal reveal--delay1" />
+      <p class="hero__tagline reveal reveal--delay2">
+        Ahol a tűz és a szenvedély<br />találkoznak a tányéron
+      </p>
+      <div class="hero__actions reveal reveal--delay3">
+        <a href="#menu" class="btn btn--ghost">Étlap felfedezése</a>
+      </div>
+    </div>
+    <div class="hero__scroll" aria-label="Görgess le">
+      <svg class="hero__scroll-pizza" viewBox="0 0 64 76" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- Szelet alap (krémes szín) -->
+        <path d="M 6,22 Q 32,2 58,22 L 32,72 Z" fill="#F0E8D8"/>
+        <!-- Kéreg -->
+        <path d="M 6,22 Q 32,2 58,22" fill="none" stroke="#8B1010" stroke-width="7" stroke-linecap="round"/>
+        <!-- Paradicsom alap (halvány piros) -->
+        <path d="M 11,26 Q 32,8 53,26 L 32,67 Z" fill="#C8534A" opacity=".18"/>
+        <!-- Sajt foltok -->
+        <ellipse cx="24" cy="36" rx="5" ry="4" fill="#F5E6B0" opacity=".9"/>
+        <ellipse cx="41" cy="34" rx="4" ry="3.5" fill="#F5E6B0" opacity=".9"/>
+        <ellipse cx="32" cy="48" rx="4.5" ry="3.5" fill="#F5E6B0" opacity=".85"/>
+        <!-- Feltétek (krimzon körök = szalámi/gomba) -->
+        <circle cx="22" cy="42" r="3.2" fill="#8B1010"/>
+        <circle cx="36" cy="40" r="2.8" fill="#8B1010"/>
+        <circle cx="29" cy="55" r="2.8" fill="#8B1010"/>
+        <circle cx="41" cy="52" r="2.4" fill="#8B1010" opacity=".7"/>
+        <circle cx="19" cy="53" r="2" fill="#8B1010" opacity=".6"/>
+        <!-- Szelet vonalak -->
+        <line x1="32" y1="14" x2="32" y2="72" stroke="#8B1010" stroke-width=".8" opacity=".25"/>
+        <line x1="10" y1="28" x2="53" y2="44" stroke="#8B1010" stroke-width=".8" opacity=".2"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ─── STATS ─── -->
+  <div class="stats">
+    <div class="stats__item reveal">
+      <div class="stats__num-wrap">
+        <span class="stats__num" data-target="31">0</span>
+        <span class="stats__unit">féle</span>
+      </div>
+      <span class="stats__label">Pizza</span>
+    </div>
+    <div class="stats__divider" aria-hidden="true"></div>
+    <div class="stats__item reveal reveal--delay1">
+      <div class="stats__num-wrap">
+        <span class="stats__num" data-target="6">0</span>
+        <span class="stats__unit">féle</span>
+      </div>
+      <span class="stats__label">Burger</span>
+    </div>
+    <div class="stats__divider" aria-hidden="true"></div>
+    <div class="stats__item reveal reveal--delay2">
+      <div class="stats__num-wrap">
+        <span class="stats__num" data-target="100">0</span>
+        <span class="stats__unit">%</span>
+      </div>
+      <span class="stats__label">Friss alapanyag</span>
+    </div>
+    <div class="stats__divider" aria-hidden="true"></div>
+    <div class="stats__item reveal reveal--delay3">
+      <div class="stats__num-wrap">
+        <span class="stats__num" data-target="11">0</span>
+        <span class="stats__unit">:00</span>
+      </div>
+      <span class="stats__label">Nyit — rendelés felvétel</span>
+    </div>
+  </div>
+
+  <!-- ─── STORY ─── -->
+  <section class="story" id="story">
+    <div class="story__number" aria-hidden="true">01</div>
+    <div class="story__text">
+      <p class="label reveal">Rólunk</p>
+      <h2 class="reveal reveal--delay1">Nem pizzázó.<br /><em>Élmény.</em></h2>
+      <p class="body reveal reveal--delay2">
+        Az Aramis 2018 óta ötvözi a nápolyi pizzakészítés titkait egy
+        igazi pub barátságos melegével. Minden pizzánk 72 órán át érlelt
+        kovászos tésztából készül, kézzel nyújtva, fatüzelésű kemencében sütve.
+      </p>
+      <p class="body reveal reveal--delay3">
+        Nem a megszokott &nbsp;— mert te sem az vagy.
+      </p>
+      <a href="#menu" class="btn btn--outline reveal reveal--delay3">Nézd meg az étlapot</a>
+    </div>
+    <div class="story__visual reveal reveal--delay2">
+      <div class="story__img-wrap">
+        <img src="images/COVER1.jpg" alt="Pizza közelről" />
+        <div class="story__badge">
+          <span>72h</span>
+          <small>érlelt tészta</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── DIVIDER ─── -->
+  <div class="section-divider">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
+      <path d="M0,0 C360,60 1080,0 1440,60 L1440,60 L0,60 Z" fill="var(--bg-alt)" />
+    </svg>
+  </div>
+
+  <!-- ─── MENU ─── -->
+  <section class="menu-section" id="menu">
+    <div class="menu-section__header">
+      <p class="label reveal">Étlap</p>
+      <h2 class="reveal reveal--delay1">Válaszd a kedvenced</h2>
+      <p class="body reveal reveal--delay2">31 féle pizza, batyuk, frissen sültek, burgerek és még sok más</p>
+    </div>
+
+    <div class="menu-tabs reveal reveal--delay2">
+      <button class="menu-tab active" data-tab="pizza">Pizza</button>
+      <button class="menu-tab" data-tab="batyu">Batyu</button>
+      <button class="menu-tab" data-tab="sult">Frissen sültek</button>
+      <button class="menu-tab" data-tab="burger">Burgerek</button>
+      <button class="menu-tab" data-tab="koret">Köretek &amp; Saláták</button>
+      <button class="menu-tab" data-tab="dessert">Desszert</button>
+    </div>
+
+    <!-- Pizza méret fejléc -->
+    <div class="pizza-size-note reveal" id="pizzaSizeNote">
+      <span>Az árak: <strong>26 cm</strong> / <strong>32 cm</strong></span>
+      <span class="pizza-size-note__extra">Pizzadoboz: +200 Ft</span>
+    </div>
+
+    <div class="menu-grid" id="menuGrid">
+
+      <!-- ══ PIZZA ══ -->
+      <div class="menu-card" data-category="pizza">
+        <div class="menu-card__number">01</div>
+        <div class="menu-card__body">
+          <h3>Margherita</h3>
+          <p>Paradicsomszósz, sajt, friss bazsalikom</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Vegetáriánus</span>
+            <span class="menu-card__price">2 790 / 2 990 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="pizza">
+        <div class="menu-card__number">02</div>
+        <div class="menu-card__body">
+          <h3>Sonkás</h3>
+          <p>Paradicsomszósz, sajt, sonka, oregano</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Klasszikus</span>
+            <span class="menu-card__price">2 990 / 3 190 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="pizza">
+        <div class="menu-card__number">03</div>
+        <div class="menu-card__body">
+          <h3>Szalámis</h3>
+          <p>Paradicsomszósz, sajt, szalámi, oregano</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Klasszikus</span>
+            <span class="menu-card__price">3 190 / 3 390 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="pizza">
+        <div class="menu-card__number">04</div>
+        <div class="menu-card__body">
+          <h3>Songoku</h3>
+          <p>Paradicsomszósz, sajt, sonka, gomba, kukorica</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Pub kedvenc</span>
+            <span class="menu-card__price">3 190 / 3 390 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="pizza">
+        <div class="menu-card__number">05</div>
+        <div class="menu-card__body">
+          <h3>Hawaii</h3>
+          <p>Paradicsomszósz, sajt, sonka, ananász, kukorica</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Édes-sós</span>
+            <span class="menu-card__price">3 190 / 3 390 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="pizza">
+        <div class="menu-card__number">06</div>
+        <div class="menu-card__body">
+          <h3>Bolognese</h3>
+          <p>Bolognai ragu, sajt</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Klasszikus</span>
+            <span class="menu-card__price">3 290 / 3 490 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="pizza">
+        <div class="menu-card__number">07</div>
+        <div class="menu-card__body">
+          <h3>Tonno</h3>
+          <p>Paradicsomszósz, sajt, tonhal, lilahagyma, oregano, kapribogyó</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Tenger gyümölcse</span>
+            <span class="menu-card__price">3 290 / 3 490 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="pizza">
+        <div class="menu-card__number">08</div>
+        <div class="menu-card__body">
+          <h3>Négysajtos</h3>
+          <p>Paradicsomszósz, négyféle sajt</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Vegetáriánus</span>
+            <span class="menu-card__price">3 190 / 3 490 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="pizza">
+        <div class="menu-card__number">09</div>
+        <div class="menu-card__body">
+          <h3>Ruccola</h3>
+          <p>Paradicsomszósz, füstölt tarja, gomba, olivabogyó, ruccola</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Prémium</span>
+            <span class="menu-card__price">3 290 / 3 490 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="pizza">
+        <div class="menu-card__number">10</div>
+        <div class="menu-card__body">
+          <h3>Perugia</h3>
+          <p>Tejfölös alap, sajt, roston sült csirkemell, kukorica</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Csirke</span>
+            <span class="menu-card__price">3 190 / 3 390 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="pizza">
+        <div class="menu-card__number">11</div>
+        <div class="menu-card__body">
+          <h3>Pompei</h3>
+          <p>Tejfölös alap, sajt, szalámi, jalapeno, hagyma</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Csípős</span>
+            <span class="menu-card__price">3 190 / 3 390 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="pizza">
+        <div class="menu-card__number">12</div>
+        <div class="menu-card__body">
+          <h3>Keri</h3>
+          <p>Tejfölös alap, sajt, bacon, lilahagyma, füstölt sajt, jalapeno</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Csípős</span>
+            <span class="menu-card__price">3 290 / 3 490 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card menu-card--featured" data-category="pizza">
+        <div class="menu-card__badge">Háziszignó</div>
+        <div class="menu-card__number">13</div>
+        <div class="menu-card__body">
+          <h3>Aramis Húsimádó</h3>
+          <p>Paradicsomszósz, sajt, sonka, bacon, szalámi, roston sült csirkemell</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Húsimádóknak</span>
+            <span class="menu-card__price">3 390 / 3 590 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="pizza">
+        <div class="menu-card__number">14</div>
+        <div class="menu-card__body">
+          <h3>Piedone</h3>
+          <p>Paradicsomszósz, sajt, bab, lilahagyma, bacon, szalámi</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Laktató</span>
+            <span class="menu-card__price">3 390 / 3 590 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="pizza">
+        <div class="menu-card__number">15</div>
+        <div class="menu-card__body">
+          <h3>Mexikói</h3>
+          <p>Paradicsomszósz, sajt, sonka, bab, kukorica, jalapeno</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Csípős</span>
+            <span class="menu-card__price">3 390 / 3 590 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="pizza">
+        <div class="menu-card__number">16</div>
+        <div class="menu-card__body">
+          <h3>Magyaros</h3>
+          <p>Paradicsomszósz, sajt, kolbász, bacon, lilahagyma, csípős pfefferoni</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Csípős</span>
+            <span class="menu-card__price">3 390 / 3 590 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="pizza">
+        <div class="menu-card__number">17</div>
+        <div class="menu-card__body">
+          <h3>Chili con Carne</h3>
+          <p>Chilis bab alap, sajt, lilahagyma, jalapeno</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Csípős</span>
+            <span class="menu-card__price">3 390 / 3 590 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="pizza">
+        <div class="menu-card__number">18</div>
+        <div class="menu-card__body">
+          <h3>Rusticana</h3>
+          <p>Paradicsomszósz, sajt, bacon, hagyma, tojás, pfefferoni, oregano</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Pub kedvenc</span>
+            <span class="menu-card__price">3 390 / 3 590 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="pizza">
+        <div class="menu-card__number">19</div>
+        <div class="menu-card__body">
+          <h3>Fecsi</h3>
+          <p>Paradicsomszósz, sajt, paradicsom karikák, feta sajt, roston sült csirkemell, ruccola</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Friss</span>
+            <span class="menu-card__price">3 390 / 3 590 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="pizza">
+        <div class="menu-card__number">20</div>
+        <div class="menu-card__body">
+          <h3>Nero</h3>
+          <p>Paradicsomszósz, sajt, sonka, bacon, szalámi, mozzarella, oregano</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Húsimádóknak</span>
+            <span class="menu-card__price">3 390 / 3 590 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="pizza">
+        <div class="menu-card__number">21</div>
+        <div class="menu-card__body">
+          <h3>Kedvenc</h3>
+          <p>Paradicsomszósz, sajt, bacon, sonka, tojás, tejföl pöttyök</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Különleges</span>
+            <span class="menu-card__price">3 390 / 3 590 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="pizza">
+        <div class="menu-card__number">22</div>
+        <div class="menu-card__body">
+          <h3>Arizona</h3>
+          <p>BBQ szósz, sajt, kukorica, roston csirke, füstölt sajt</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">BBQ</span>
+            <span class="menu-card__price">3 290 / 3 490 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="pizza">
+        <div class="menu-card__number">23</div>
+        <div class="menu-card__body">
+          <h3>Colorado</h3>
+          <p>BBQ szósz, sajt, bacon, sonka, lilahagyma</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">BBQ</span>
+            <span class="menu-card__price">3 290 / 3 490 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="pizza">
+        <div class="menu-card__number">24</div>
+        <div class="menu-card__body">
+          <h3>Tiroli</h3>
+          <p>Paradicsom szósz, sajt, füstölt tarja, füstölt sajt</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Füstölt</span>
+            <span class="menu-card__price">3 290 / 3 490 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="pizza">
+        <div class="menu-card__number">25</div>
+        <div class="menu-card__body">
+          <h3>Pepita</h3>
+          <p>Paradicsom szósz, sajt, szalámi, gomba, bacon</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Klasszikus</span>
+            <span class="menu-card__price">3 190 / 3 390 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="pizza">
+        <div class="menu-card__number">26</div>
+        <div class="menu-card__body">
+          <h3>Oscar</h3>
+          <p>Paradicsom szósz, sajt, szalámi, feta sajt, lilahagyma</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Mediterrán</span>
+            <span class="menu-card__price">3 190 / 3 390 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="pizza">
+        <div class="menu-card__number">27</div>
+        <div class="menu-card__body">
+          <h3>Fungi</h3>
+          <p>Paradicsom szósz, sajt, gomba, sonka</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Klasszikus</span>
+            <span class="menu-card__price">3 190 / 3 390 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="pizza">
+        <div class="menu-card__number">28</div>
+        <div class="menu-card__body">
+          <h3>Pedro</h3>
+          <p>Paradicsom szósz, sajt, szalámi, gomba, parmezán</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Olaszos</span>
+            <span class="menu-card__price">3 190 / 3 390 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="pizza">
+        <div class="menu-card__number">29</div>
+        <div class="menu-card__body">
+          <h3>Ördög</h3>
+          <p>Paradicsom szósz, sajt, sonka, csípős kolbász, csípős pfefferoni, oregano</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Nagyon csípős</span>
+            <span class="menu-card__price">3 390 / 3 590 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="pizza">
+        <div class="menu-card__number">30</div>
+        <div class="menu-card__body">
+          <h3>Oliva</h3>
+          <p>Paradicsom szósz, sajt, ruccola, koktél paradicsom, parmezán, füstölt tarja, olivaolaj</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Prémium</span>
+            <span class="menu-card__price">3 390 / 3 590 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card menu-card--featured" data-category="pizza">
+        <div class="menu-card__badge">Te döntöd el!</div>
+        <div class="menu-card__number">31</div>
+        <div class="menu-card__body">
+          <h3>Kívánság Pizza</h3>
+          <p>Választható alap, szabadon választható 3 feltét, sajt — csak 32 cm-ben</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Egyedi</span>
+            <span class="menu-card__price">— / 3 690 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ BATYU ══ -->
+      <div class="menu-card menu-card--featured" data-category="batyu" style="display:none">
+        <div class="menu-card__badge">Háziszignó</div>
+        <div class="menu-card__number">01</div>
+        <div class="menu-card__body">
+          <h3>Csubatyu</h3>
+          <p>Lepényben, fokhagymás szósz, paradicsom, lilahagyma, 2db rántott karaj, pirított bacon, sajt, majonéz</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Pub kedvenc</span>
+            <span class="menu-card__price">3 490 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="batyu" style="display:none">
+        <div class="menu-card__number">02</div>
+        <div class="menu-card__body">
+          <h3>Csubatyu Junior</h3>
+          <p>Lepényben, fokhagymás szósz, paradicsom, lilahagyma, 1db rántott szelet, pirított bacon, sajt, majonéz</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Kisebb adag</span>
+            <span class="menu-card__price">2 490 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="batyu" style="display:none">
+        <div class="menu-card__number">03</div>
+        <div class="menu-card__body">
+          <h3>Texas Batyu</h3>
+          <p>Lepényben, roston csirke, jégsaláta, feta sajt, majonéz, paradicsom, kígyóuborka</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Csirke</span>
+            <span class="menu-card__price">3 490 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="batyu" style="display:none">
+        <div class="menu-card__number">04</div>
+        <div class="menu-card__body">
+          <h3>Balkán Batyu</h3>
+          <p>Lepényben, ajvár, csevapcsicsa, jégsaláta, lilahagyma, paradicsom</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Balkáni</span>
+            <span class="menu-card__price">3 490 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="batyu" style="display:none">
+        <div class="menu-card__number">05</div>
+        <div class="menu-card__body">
+          <h3>Vega Batyu</h3>
+          <p>Lepényben, rántott sajt, tartár mártás, jégsaláta, kígyóuborka</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Vegetáriánus</span>
+            <span class="menu-card__price">3 490 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="batyu" style="display:none">
+        <div class="menu-card__number">06</div>
+        <div class="menu-card__body">
+          <h3>Pizza Batyu (8 db)</h3>
+          <p>32 cm pizza alap, dupla sajt + 3 választható feltéttel töltve, tejfölös / fokhagymás / csípős / BBQ szósszal</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Megosztható</span>
+            <span class="menu-card__price">3 190 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feltétek info card -->
+      <div class="menu-card menu-card--info" data-category="batyu" style="display:none">
+        <span class="info-label">Külön kérhető feltétek</span>
+        <div class="info-rows">
+          <div class="info-row">
+            <strong>300 Ft / feltét</strong>
+            <div class="info-tags">
+              <span class="info-tag">Lilahagyma</span><span class="info-tag">Tejföl</span><span class="info-tag">Paradicsom karika</span><span class="info-tag">Kukorica</span><span class="info-tag">Pfefferoni</span><span class="info-tag">Olajbogyó</span><span class="info-tag">Jalapeno</span><span class="info-tag">Gomba</span><span class="info-tag">Ananász</span><span class="info-tag">Koktélparadicsom</span><span class="info-tag">Ruccola</span><span class="info-tag">Tojás</span><span class="info-tag">Bab</span><span class="info-tag">Csípős pfefferoni</span><span class="info-tag">Kapribogyó</span>
+            </div>
+          </div>
+          <div class="info-row">
+            <strong>400 Ft / feltét</strong>
+            <div class="info-tags">
+              <span class="info-tag">Szalámi</span><span class="info-tag">Sonka</span><span class="info-tag">Bacon</span><span class="info-tag">Tonhal</span><span class="info-tag">Roston csirkemell</span><span class="info-tag">Kolbász</span><span class="info-tag">Csípős kolbász</span><span class="info-tag">Füstölt tarja</span><span class="info-tag">Batyu szósz</span><span class="info-tag">Mozzarella</span><span class="info-tag">Feta</span><span class="info-tag">Füstölt sajt</span><span class="info-tag">Brie</span><span class="info-tag">Parmezán</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ FRISSEN SÜLTEK ══ -->
+      <div class="menu-card" data-category="sult" style="display:none">
+        <div class="menu-card__number">01</div>
+        <div class="menu-card__body">
+          <h3>Fűszervajas roston sült csirkemell</h3>
+          <p>Friss fűszervajjal tálalt roston csirkemell</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Csirke</span>
+            <span class="menu-card__price">3 260 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="sult" style="display:none">
+        <div class="menu-card__number">02</div>
+        <div class="menu-card__body">
+          <h3>Chilis bab házi lepénnyel</h3>
+          <p>Házi készítésű chilis bab friss lepénnyel</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Vegetáriánus</span>
+            <span class="menu-card__price">3 260 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="sult" style="display:none">
+        <div class="menu-card__number">03</div>
+        <div class="menu-card__body">
+          <h3>Rántott szelet</h3>
+          <p>Sertés vagy csirke rántott szelet, választás szerint</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Sertés / Csirke</span>
+            <span class="menu-card__price">3 260 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="sult" style="display:none">
+        <div class="menu-card__number">04</div>
+        <div class="menu-card__body">
+          <h3>Rántott sajt tartár mártással</h3>
+          <p>Ropogós rántott sajt, friss házi tartár mártással</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Vegetáriánus</span>
+            <span class="menu-card__price">3 260 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="sult" style="display:none">
+        <div class="menu-card__number">05</div>
+        <div class="menu-card__body">
+          <h3>Rántott Camembert áfonyával</h3>
+          <p>Ropogós rántott camembert sajt, áfonyalekvárral</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Különleges</span>
+            <span class="menu-card__price">3 260 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="sult" style="display:none">
+        <div class="menu-card__number">06</div>
+        <div class="menu-card__body">
+          <h3>Bolognai spagetti</h3>
+          <p>Klasszikus bolognai ragus spagetti</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Tészta</span>
+            <span class="menu-card__price">3 040 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="sult" style="display:none">
+        <div class="menu-card__number">07</div>
+        <div class="menu-card__body">
+          <h3>Sonkával-sajttal töltött szelet</h3>
+          <p>Sonkával és sajttal töltött rántott szelet — sertés vagy csirke</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Sertés / Csirke</span>
+            <span class="menu-card__price">3 440 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="sult" style="display:none">
+        <div class="menu-card__number">08</div>
+        <div class="menu-card__body">
+          <h3>Borzas szelet</h3>
+          <p>Ropogós borzas bunda, ízletes szelet</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Különleges bunda</span>
+            <span class="menu-card__price">3 440 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="sult" style="display:none">
+        <div class="menu-card__number">09</div>
+        <div class="menu-card__body">
+          <h3>Bolognai sertésborda</h3>
+          <p>Szaftos sertésborda bolognai raguval</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Főfogás</span>
+            <span class="menu-card__price">4 420 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="sult" style="display:none">
+        <div class="menu-card__number">10</div>
+        <div class="menu-card__body">
+          <h3>Baconos Cordon</h3>
+          <p>Baconnal és sajttal töltött rántott szelet</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Prémium</span>
+            <span class="menu-card__price">3 440 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="sult" style="display:none">
+        <div class="menu-card__number">11</div>
+        <div class="menu-card__body">
+          <h3>Kolbászos Cordon</h3>
+          <p>Kolbásszal és sajttal töltött rántott szelet</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Magyaros</span>
+            <span class="menu-card__price">3 440 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ BURGEREK ══ -->
+      <div class="menu-card" data-category="burger" style="display:none">
+        <div class="menu-card__number">01</div>
+        <div class="menu-card__body">
+          <h3>Classic Burger</h3>
+          <p>Coleslaw saláta, hús, sajt, hagymakarika, paradicsom, Aramis szósz, uborka</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">100% marhahús</span>
+            <span class="menu-card__price">3 190 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card menu-card--featured" data-category="burger" style="display:none">
+        <div class="menu-card__badge">Pub kedvenc</div>
+        <div class="menu-card__number">02</div>
+        <div class="menu-card__body">
+          <h3>BBQ Burger</h3>
+          <p>Aramis szósz, karamellizált hagyma, saláta, paradicsom, hús, sajt, bacon, BBQ szósz, uborka</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">100% marhahús</span>
+            <span class="menu-card__price">3 390 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="burger" style="display:none">
+        <div class="menu-card__number">03</div>
+        <div class="menu-card__body">
+          <h3>Mexican Burger</h3>
+          <p>Chilis bab, hús, sajt, jalapeno, Aramis szósz, uborka</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Csípős</span>
+            <span class="menu-card__price">3 390 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="burger" style="display:none">
+        <div class="menu-card__number">04</div>
+        <div class="menu-card__body">
+          <h3>Bacon Burger</h3>
+          <p>Chilis saláta, paradicsom, sajt, hús, sajt, bacon, uborka</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">100% marhahús</span>
+            <span class="menu-card__price">3 390 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="burger" style="display:none">
+        <div class="menu-card__number">05</div>
+        <div class="menu-card__body">
+          <h3>American Burger</h3>
+          <p>Coleslaw saláta, hús, sajt, hagymakarika, paradicsom, Aramis szósz, uborka</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">100% marhahús</span>
+            <span class="menu-card__price">3 390 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="burger" style="display:none">
+        <div class="menu-card__number">06</div>
+        <div class="menu-card__body">
+          <h3>Smashed Burger</h3>
+          <p>Hagymával kevert hús, sajt, Aramis szósz, uborka</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">100% marhahús</span>
+            <span class="menu-card__price">3 190 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Burger Menü info -->
+      <div class="menu-card menu-card--info" data-category="burger" style="display:none">
+        <span class="info-label">Burger Menü — Burger + hasábburgonya + 1 választható dobozos üdítő</span>
+        <div class="info-rows">
+          <div class="info-row"><strong>BBQ, Mexican, American, Bacon</strong> — 3 940 Ft</div>
+          <div class="info-row"><strong>Classic</strong> — 3 640 Ft</div>
+          <div class="info-row" style="color:var(--text-muted);font-size:.72rem;flex-basis:100%">Minden hús 100%-os marhahús</div>
+        </div>
+      </div>
+
+      <!-- ══ KÖRETEK & SALÁTÁK ══ -->
+      <div class="menu-card" data-category="koret" style="display:none">
+        <div class="menu-card__number">01</div>
+        <div class="menu-card__body">
+          <h3>Hasábburgonya</h3>
+          <p>Ropogós sült hasábburgonya</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Köret</span>
+            <span class="menu-card__price">950 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="koret" style="display:none">
+        <div class="menu-card__number">02</div>
+        <div class="menu-card__body">
+          <h3>Rizs</h3>
+          <p>Főtt rizs</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Köret</span>
+            <span class="menu-card__price">940 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="koret" style="display:none">
+        <div class="menu-card__number">03</div>
+        <div class="menu-card__body">
+          <h3>Steak burgonya</h3>
+          <p>Vastag szeletű, ropogós steak burgonya</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Köret</span>
+            <span class="menu-card__price">990 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="koret" style="display:none">
+        <div class="menu-card__number">04</div>
+        <div class="menu-card__body">
+          <h3>Parázs burgonya</h3>
+          <p>Sütőben sült parázs burgonya</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Köret</span>
+            <span class="menu-card__price">950 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="koret" style="display:none">
+        <div class="menu-card__number">05</div>
+        <div class="menu-card__body">
+          <h3>Coleslaw saláta</h3>
+          <p>Káposzta alapú saláta házi öntettel</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Saláta</span>
+            <span class="menu-card__price">1 060 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="koret" style="display:none">
+        <div class="menu-card__number">06</div>
+        <div class="menu-card__body">
+          <h3>Majonézes kukorica</h3>
+          <p>Krémes majonézes kukorica saláta</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Saláta</span>
+            <span class="menu-card__price">860 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="koret" style="display:none">
+        <div class="menu-card__number">07</div>
+        <div class="menu-card__body">
+          <h3>Csemege uborka</h3>
+          <p>Savanyított csemege uborka</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Saláta</span>
+            <span class="menu-card__price">800 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="koret" style="display:none">
+        <div class="menu-card__number">08</div>
+        <div class="menu-card__body">
+          <h3>Bajor burgonyasaláta</h3>
+          <p>Meleg burgonyasaláta bajor módra</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Saláta</span>
+            <span class="menu-card__price">860 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ DESSZERT ══ -->
+      <div class="menu-card" data-category="dessert" style="display:none">
+        <div class="menu-card__number">01</div>
+        <div class="menu-card__body">
+          <h3>Somlói galuska</h3>
+          <p>Klasszikus magyar somlói galuska tejszínhabbal</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Magyar klasszikus</span>
+            <span class="menu-card__price">1 550 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card menu-card--featured" data-category="dessert" style="display:none">
+        <div class="menu-card__badge">Több féle</div>
+        <div class="menu-card__number">02</div>
+        <div class="menu-card__body">
+          <h3>Csokis Láva</h3>
+          <p>Meleg csoki lávatorta, folyó csoki belsővel — több variációban</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Csokoládé</span>
+            <span class="menu-card__price">1 500 Ft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="dessert" style="display:none">
+        <div class="menu-card__number">03</div>
+        <div class="menu-card__body">
+          <h3>Tiramisu</h3>
+          <p>Olasz klasszikus tiramisu, espresso és mascarpone</p>
+          <div class="menu-card__footer">
+            <span class="menu-card__tag">Olasz klasszikus</span>
+            <span class="menu-card__price">1 750 Ft</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="menu-cta reveal">
+      <p>Online rendelnél?</p>
+      <a href="https://rendeles.aramismoapizzeria.hu/" target="_blank" class="btn btn--outline">Rendelés online</a>
+    </div>
+  </section>
+
+  <!-- ─── HOURS + CONTACT ─── -->
+  <section class="contact" id="contact">
+    <div class="contact__info">
+      <p class="label reveal">Nyitva tartás</p>
+      <h2 class="reveal reveal--delay1">Látogass meg minket</h2>
+      <div class="hours reveal reveal--delay2">
+        <div class="hours__row">
+          <span>Hétfő – Csütörtök</span>
+          <span>12:00 – 23:00</span>
+        </div>
+        <div class="hours__row">
+          <span>Péntek – Szombat</span>
+          <span>12:00 – 01:00</span>
+        </div>
+        <div class="hours__row">
+          <span>Vasárnap</span>
+          <span>12:00 – 22:00</span>
+        </div>
+      </div>
+      <div class="order-info reveal reveal--delay3">
+        <p class="label" style="margin-bottom:.6rem">Rendelés felvétel</p>
+        <div class="order-info__time">11:00 – 21:45</div>
+        <a href="tel:+36305710530" class="order-info__phone">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.68 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.59 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.16 6.16l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          +36 30 571 0530
+        </a>
+      </div>
+
+      <div class="delivery-note reveal reveal--delay3">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        <p><strong>6 000 Ft feletti rendelés esetén szállítunk:</strong> Harkára, Ágfalvára, Görbehalomra, Kópházára, Tómalomra. Szállítási költség: <strong>800 Ft</strong>.</p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer class="footer">
+    <div class="footer__top">
+      <img src="images/logo R.png" alt="Aramis Pizza &amp; Pub" class="footer__logo" />
+      <nav class="footer__nav">
+        <a href="#story">Rólunk</a>
+        <a href="#menu">Étlap</a>
+        <a href="#contact">Kapcsolat</a>
+      </nav>
+      <div class="footer__social">
+        <a href="#" aria-label="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="#" aria-label="Facebook">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="#" aria-label="TripAdvisor">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8l1.5 3h3l-2.5 2 1 3L12 14l-3 2 1-3-2.5-2h3z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2025 Aramis Pizza &amp; Pub. Minden jog fenntartva.</p>
+      <p>Made with ❤️ in Budapest</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
