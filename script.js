@@ -245,3 +245,267 @@ window.addEventListener('scroll', () => {
     a.style.color = a.getAttribute('href') === `#${current}` ? 'var(--cream)' : '';
   });
 }, { passive: true });
+
+/* ══════════════════════════════════════
+   KOSÁR RENDSZER
+   ══════════════════════════════════════ */
+
+const cart = [];
+
+/* ── Ár szöveg feldolgozása ── */
+function parsePriceText(text) {
+  // Szóközök és nem törhető szóközök eltávolítása, "Ft" eltávolítása
+  const clean = text.replace(/[\s\u00a0]/g, '').replace('Ft', '');
+  if (clean.includes('/')) {
+    const parts = clean.split('/');
+    const small = parts[0] === '—' ? null : parseInt(parts[0]);
+    const large = parseInt(parts[1]);
+    return { type: 'pizza', small, large };
+  }
+  return { type: 'single', single: parseInt(clean) };
+}
+
+/* ── Ár formázása ── */
+function formatPrice(n) {
+  return n.toLocaleString('hu-HU') + ' Ft';
+}
+
+/* ── "Kosárba" gombok hozzáadása az étlapkártyákhoz ── */
+function initCartButtons() {
+  document.querySelectorAll('.menu-card:not(.menu-card--info)').forEach(card => {
+    const nameEl = card.querySelector('h3');
+    const priceEl = card.querySelector('.menu-card__price');
+    const footer  = card.querySelector('.menu-card__footer');
+    if (!nameEl || !priceEl || !footer) return;
+
+    const name = nameEl.textContent.trim();
+    const priceText = priceEl.textContent.trim();
+    const priceData = parsePriceText(priceText);
+
+    // Kihagyjuk ha az ár nem értelmezhető
+    if (
+      (priceData.type === 'single' && isNaN(priceData.single)) ||
+      (priceData.type === 'pizza' && isNaN(priceData.large))
+    ) return;
+
+    const btn = document.createElement('button');
+    btn.className = 'add-to-cart-btn';
+    btn.textContent = '+ Kosárba';
+    btn.addEventListener('click', () => handleAddToCart(name, priceData));
+    footer.appendChild(btn);
+  });
+}
+
+/* ── "Kosárba" gomb kezelése ── */
+function handleAddToCart(name, priceData) {
+  if (priceData.type === 'pizza') {
+    showSizePicker(name, priceData);
+  } else {
+    addToCart(name, priceData.single, '');
+  }
+}
+
+/* ── Pizza méret választó ── */
+let pendingSizeItem = null;
+
+function showSizePicker(name, priceData) {
+  pendingSizeItem = { name, priceData };
+  document.getElementById('sizeModalName').textContent = name;
+
+  const smallBtn = document.getElementById('sizeSmall');
+  const largePriceEl = document.getElementById('sizePriceLarge');
+
+  if (priceData.small) {
+    smallBtn.style.display = '';
+    document.getElementById('sizePriceSmall').textContent = formatPrice(priceData.small);
+  } else {
+    smallBtn.style.display = 'none';
+  }
+
+  largePriceEl.textContent = formatPrice(priceData.large);
+  document.getElementById('sizeModalOverlay').classList.add('active');
+}
+
+function hideSizePicker() {
+  document.getElementById('sizeModalOverlay').classList.remove('active');
+  pendingSizeItem = null;
+}
+
+document.getElementById('sizeSmall').addEventListener('click', () => {
+  if (!pendingSizeItem) return;
+  addToCart(pendingSizeItem.name, pendingSizeItem.priceData.small, '26 cm');
+  hideSizePicker();
+});
+document.getElementById('sizeLarge').addEventListener('click', () => {
+  if (!pendingSizeItem) return;
+  addToCart(pendingSizeItem.name, pendingSizeItem.priceData.large, '32 cm');
+  hideSizePicker();
+});
+document.getElementById('sizeCancel').addEventListener('click', hideSizePicker);
+document.getElementById('sizeModalOverlay').addEventListener('click', e => {
+  if (e.target === e.currentTarget) hideSizePicker();
+});
+
+/* ── Kosárba adás / eltávolítás ── */
+function addToCart(name, price, size) {
+  const key = size ? `${name} (${size})` : name;
+  const existing = cart.find(i => i.key === key);
+  if (existing) {
+    existing.qty++;
+  } else {
+    cart.push({ key, name, price, size, qty: 1 });
+  }
+  updateCartUI();
+  flashFab();
+}
+
+function changeQty(key, delta) {
+  const idx = cart.findIndex(i => i.key === key);
+  if (idx === -1) return;
+  cart[idx].qty += delta;
+  if (cart[idx].qty <= 0) cart.splice(idx, 1);
+  updateCartUI();
+}
+
+/* ── Kosár UI frissítése ── */
+function getCartCount() { return cart.reduce((s, i) => s + i.qty, 0); }
+function getCartTotal() { return cart.reduce((s, i) => s + i.price * i.qty, 0); }
+
+function updateCartUI() {
+  const count = getCartCount();
+  const fab = document.getElementById('cartFab');
+  document.getElementById('cartCount').textContent = count;
+  fab.style.display = count > 0 ? 'flex' : 'none';
+
+  const itemsEl = document.getElementById('cartItems');
+  if (cart.length === 0) {
+    itemsEl.innerHTML = '<p class="cart-empty">A kosár üres</p>';
+  } else {
+    itemsEl.innerHTML = cart.map(item => {
+      const safeKey = item.key.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+      return `<div class="cart-item">
+        <div class="cart-item__info">
+          <span class="cart-item__name">${item.key}</span>
+          <span class="cart-item__price">${formatPrice(item.price)} / db</span>
+        </div>
+        <div class="cart-item__controls">
+          <button class="cart-qty-btn" onclick="changeQty('${safeKey}', -1)">−</button>
+          <span class="cart-qty">${item.qty}</span>
+          <button class="cart-qty-btn" onclick="changeQty('${safeKey}', 1)">+</button>
+        </div>
+        <span class="cart-item__subtotal">${formatPrice(item.price * item.qty)}</span>
+      </div>`;
+    }).join('');
+  }
+
+  document.getElementById('cartTotal').textContent = formatPrice(getCartTotal());
+}
+
+function flashFab() {
+  const fab = document.getElementById('cartFab');
+  fab.classList.remove('bounce');
+  void fab.offsetWidth; // reflow
+  fab.classList.add('bounce');
+}
+
+/* ── Kosár fiók nyitás/zárás ── */
+function openCart() {
+  document.getElementById('cartDrawer').classList.add('open');
+  document.getElementById('cartOverlay').classList.add('active');
+}
+function closeCart() {
+  document.getElementById('cartDrawer').classList.remove('open');
+  document.getElementById('cartOverlay').classList.remove('active');
+}
+
+document.getElementById('cartFab').addEventListener('click', openCart);
+document.getElementById('cartClose').addEventListener('click', closeCart);
+document.getElementById('cartOverlay').addEventListener('click', closeCart);
+
+/* ── Rendelési form megnyitás ── */
+function openOrderForm() {
+  closeCart();
+  // Összefoglaló frissítése
+  const sumEl = document.getElementById('orderSummary');
+  sumEl.innerHTML = cart.map(i =>
+    `<div class="order-summary-row">
+       <span class="order-summary-name">${i.key} × ${i.qty}</span>
+       <span class="order-summary-price">${formatPrice(i.price * i.qty)}</span>
+     </div>`
+  ).join('') +
+  `<div class="order-summary-row">
+     <span class="order-summary-name">Összesen</span>
+     <span>${formatPrice(getCartTotal())}</span>
+   </div>`;
+  document.getElementById('orderModalOverlay').classList.add('active');
+}
+function closeOrderForm() {
+  document.getElementById('orderModalOverlay').classList.remove('active');
+}
+
+document.getElementById('cartCheckout').addEventListener('click', openOrderForm);
+document.getElementById('orderModalClose').addEventListener('click', closeOrderForm);
+document.getElementById('orderModalOverlay').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeOrderForm();
+});
+
+/* ── Kiszállítás / átvétel toggle ── */
+document.querySelectorAll('input[name="orderType"]').forEach(radio => {
+  radio.addEventListener('change', () => {
+    const isDelivery = radio.value === 'delivery';
+    const ag = document.getElementById('addressGroup');
+    ag.style.display = isDelivery ? '' : 'none';
+    if (isDelivery) {
+      document.getElementById('orderAddress').setAttribute('required', '');
+    } else {
+      document.getElementById('orderAddress').removeAttribute('required');
+    }
+  });
+});
+
+/* ── Form beküldés → WhatsApp ── */
+document.getElementById('orderForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const data = new FormData(e.target);
+  const isDelivery = data.get('orderType') === 'delivery';
+
+  let msg = '🍕 *ARAMIS RENDELÉS*\n\n';
+  msg += `*${isDelivery ? '🚗 Kiszállítás' : '🏠 Személyes átvétel'}*\n`;
+  msg += `Név: ${data.get('name')}\n`;
+  msg += `Tel: ${data.get('phone')}\n`;
+  if (isDelivery && data.get('address')) {
+    msg += `Cím: ${data.get('address')}\n`;
+  }
+  if (data.get('notes')) {
+    msg += `Megjegyzés: ${data.get('notes')}\n`;
+  }
+  msg += '\n*Rendelt tételek:*\n';
+  cart.forEach(i => {
+    msg += `• ${i.key} × ${i.qty}  —  ${formatPrice(i.price * i.qty)}\n`;
+  });
+  msg += `\n*Összesen: ${formatPrice(getCartTotal())}*`;
+
+  // WhatsApp megnyitása
+  window.open(`https://wa.me/36305710530?text=${encodeURIComponent(msg)}`, '_blank');
+
+  // Visszaállítás
+  closeOrderForm();
+  cart.length = 0;
+  updateCartUI();
+  e.target.reset();
+  document.getElementById('addressGroup').style.display = '';
+
+  // Toast
+  const toast = document.createElement('div');
+  toast.className = 'order-toast';
+  toast.textContent = '✓ Rendelésed elküldve WhatsApp-on!';
+  document.body.appendChild(toast);
+  setTimeout(() => toast.classList.add('show'), 10);
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => toast.remove(), 400);
+  }, 4000);
+});
+
+/* ── Inicializálás ── */
+initCartButtons();
