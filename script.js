@@ -463,49 +463,177 @@ document.querySelectorAll('input[name="orderType"]').forEach(radio => {
   });
 });
 
-/* ── Form beküldés → WhatsApp ── */
-document.getElementById('orderForm').addEventListener('submit', e => {
-  e.preventDefault();
-  const data = new FormData(e.target);
-  const isDelivery = data.get('orderType') === 'delivery';
+/* ══════════════════════════════════════════════════════
+   FIREBASE INICIALIZÁLÁS
+   ══════════════════════════════════════════════════════ */
+let db = null;
 
+(function initFirebase() {
+  const cfg = window.FIREBASE_CONFIG;
+  if (!cfg || cfg.apiKey === 'ILLESZD_BE_ITT') return;
+  try {
+    const app = firebase.initializeApp(cfg);
+    db = firebase.database(app);
+  } catch (e) {
+    console.warn('Firebase init hiba:', e);
+  }
+})();
+
+/* ── WhatsApp üzenet összeállítása ── */
+function buildWhatsAppMsg(data, isDelivery) {
   let msg = '🍕 *ARAMIS RENDELÉS*\n\n';
   msg += `*${isDelivery ? '🚗 Kiszállítás' : '🏠 Személyes átvétel'}*\n`;
   msg += `Név: ${data.get('name')}\n`;
   msg += `Tel: ${data.get('phone')}\n`;
-  if (isDelivery && data.get('address')) {
-    msg += `Cím: ${data.get('address')}\n`;
-  }
-  if (data.get('notes')) {
-    msg += `Megjegyzés: ${data.get('notes')}\n`;
-  }
+  if (isDelivery && data.get('address')) msg += `Cím: ${data.get('address')}\n`;
+  if (data.get('notes')) msg += `Megjegyzés: ${data.get('notes')}\n`;
   msg += '\n*Rendelt tételek:*\n';
-  cart.forEach(i => {
-    msg += `• ${i.key} × ${i.qty}  —  ${formatPrice(i.price * i.qty)}\n`;
-  });
+  cart.forEach(i => { msg += `• ${i.key} × ${i.qty}  —  ${formatPrice(i.price * i.qty)}\n`; });
   msg += `\n*Összesen: ${formatPrice(getCartTotal())}*`;
+  return msg;
+}
 
-  // WhatsApp megnyitása
-  window.open(`https://wa.me/36305710530?text=${encodeURIComponent(msg)}`, '_blank');
+/* ── Rendelés elküldése Firebase-be ── */
+async function submitOrderToFirebase(orderData) {
+  // Sorszám atomikus növelése
+  const counterRef = db.ref('meta/orderCounter');
+  let orderNum = 1;
+  await counterRef.transaction(cur => { orderNum = (cur || 0) + 1; return orderNum; });
 
-  // Visszaállítás
-  closeOrderForm();
-  cart.length = 0;
-  updateCartUI();
-  e.target.reset();
-  document.getElementById('addressGroup').style.display = '';
+  const id = `order_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
+  await db.ref(`orders/${id}`).set({
+    id,
+    orderNum,
+    date:      new Date().toISOString().slice(0, 10),
+    status:    'new',
+    createdAt: Date.now(),
+    updatedAt: Date.now(),
+    ...orderData,
+  });
+  return orderNum;
+}
 
-  // Toast
+/* ── Sikeres rendelés képernyő megjelenítése ── */
+function showOrderSuccess(orderNum, waMsg, orderType) {
+  const form    = document.getElementById('orderForm');
+  const success = document.getElementById('orderSuccess');
+  const numEl   = document.getElementById('successOrderNum');
+  const etaEl   = document.getElementById('successEta');
+
+  form.style.display    = 'none';
+  success.style.display = '';
+  numEl.textContent     = `#${String(orderNum).padStart(3, '0')}`;
+
+  // Becsült idő Firebase beállításokból
+  if (db) {
+    db.ref('settings').once('value').then(snap => {
+      const s   = snap.val() || {};
+      const eta = orderType === 'delivery'
+        ? (s.deliveryEta || '45–60')
+        : (s.pickupEta   || '20–30');
+      const label = orderType === 'delivery' ? 'Kiszállítás' : 'Személyes átvétel';
+      etaEl.textContent = `${label}: ~${eta} perc`;
+    }).catch(() => {
+      etaEl.textContent = 'Hamarosan felvesszük a kapcsolatot.';
+    });
+  } else {
+    etaEl.textContent = 'Hamarosan felvesszük a kapcsolatot.';
+  }
+
+  // Bezárás
+  document.getElementById('successCloseBtn').onclick = () => {
+    closeOrderForm();
+    setTimeout(() => {
+      form.style.display    = '';
+      success.style.display = 'none';
+    }, 400);
+  };
+}
+
+/* ── Form beküldés ── */
+document.getElementById('orderForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const data       = new FormData(e.target);
+  const isDelivery = data.get('orderType') === 'delivery';
+  const waMsg      = buildWhatsAppMsg(data, isDelivery);
+
+  const orderData = {
+    type:    data.get('orderType'),
+    name:    data.get('name'),
+    phone:   data.get('phone'),
+    address: isDelivery ? (data.get('address') || '') : '',
+    notes:   data.get('notes') || '',
+    items:   cart.map(i => ({ key: i.key, name: i.name, price: i.price, size: i.size, qty: i.qty })),
+    total:   getCartTotal(),
+  };
+
+  const submitBtn = document.getElementById('orderSubmitBtn');
+  submitBtn.disabled    = true;
+  submitBtn.textContent = 'Küldés…';
+
+  // Kosár törlése (UI-ban már nem látszik)
+  const cartSnapshot = [...cart];
+
+  if (db) {
+    try {
+      const orderNum = await submitOrderToFirebase(orderData);
+      cart.length = 0;
+      updateCartUI();
+      e.target.reset();
+      document.getElementById('addressGroup').style.display = '';
+      showOrderSuccess(orderNum, waMsg, orderData.type);
+    } catch (err) {
+      console.error('Rendelés mentési hiba:', err);
+      // Fallback: WhatsApp
+      window.open(`https://wa.me/36305710530?text=${encodeURIComponent(waMsg)}`, '_blank');
+      cart.length = 0;
+      updateCartUI();
+      e.target.reset();
+      document.getElementById('addressGroup').style.display = '';
+      closeOrderForm();
+      showToast('✓ Rendelésed WhatsApp-on elküldve!');
+    }
+  } else {
+    // Firebase nincs beállítva → WhatsApp
+    window.open(`https://wa.me/36305710530?text=${encodeURIComponent(waMsg)}`, '_blank');
+    cart.length = 0;
+    updateCartUI();
+    e.target.reset();
+    document.getElementById('addressGroup').style.display = '';
+    closeOrderForm();
+    showToast('✓ Rendelésed WhatsApp-on elküldve!');
+  }
+
+  submitBtn.disabled    = false;
+  submitBtn.innerHTML   = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Rendelés elküldése';
+});
+
+function showToast(msg) {
   const toast = document.createElement('div');
-  toast.className = 'order-toast';
-  toast.textContent = '✓ Rendelésed elküldve WhatsApp-on!';
+  toast.className   = 'order-toast';
+  toast.textContent = msg;
   document.body.appendChild(toast);
   setTimeout(() => toast.classList.add('show'), 10);
-  setTimeout(() => {
-    toast.classList.remove('show');
-    setTimeout(() => toast.remove(), 400);
-  }, 4000);
-});
+  setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 400); }, 4000);
+}
+
+/* ── Rendelés zárva figyelés ── */
+(function watchOrdersClosed() {
+  if (!db) return;
+  db.ref('settings/ordersClosed').on('value', snap => {
+    const closed  = !!snap.val();
+    const checkout = document.getElementById('cartCheckout');
+    const submitBtn = document.getElementById('orderSubmitBtn');
+    const banner  = document.getElementById('orderClosedBanner');
+
+    if (checkout) {
+      checkout.disabled    = closed;
+      checkout.textContent = closed ? 'Rendelés szünetel' : 'Rendelés leadása →';
+    }
+    if (submitBtn) submitBtn.disabled = closed;
+    if (banner) banner.style.display = closed ? '' : 'none';
+  });
+})();
 
 /* ── Inicializálás ── */
 initCartButtons();
